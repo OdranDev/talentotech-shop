@@ -1,0 +1,41 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.App{
+  text-align: center;
+  font-family: system-ui, Verdana, Tahoma, sans-serif;
+}
+
+.App-Header {
+  background-color: #282c34;
+  padding: 1rem;
+  color: #fffaaa;
+}
+
+.ElMain{
+  padding: 3rem;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  margin-bottom: 30px;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+}
