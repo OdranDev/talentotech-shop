@@ -1,4 +1,6 @@
+import {Link} from 'react-router-dom'
 import { useCart } from './CartProvider';
+
 import '../style/NavBar.css';
 
 function NavBar() {
@@ -8,20 +10,20 @@ function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <a href="/">TalentoTech Shop</a>
+        <Link to="/">TalentoTech Shop</Link>
       </div>
       <ul className="navbar-link">
-        <li><a href="/">Home</a></li>
-        <li><a href="/productos">Products</a></li>
-        <li><a href="/categorias">Categories</a></li>
-        <li><a href="/ofertas">Offer</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/productos">Products</Link></li>
+        <li><Link to="/categorias">Categories</Link></li>
+        <li><Link to="/ofertas">Offer</Link></li>
       </ul>
       <div className="navbar-actions">
         <a href="/search" className="search-icon">🔍</a>
         <a href="/profile" className="profile-icon">👤</a>
-        <a href="/cart" className="cart-icon">
+        <Link to="/cart" className="cart-icon" >
           🛒<span className="cart-count">{totalItems}</span>
-        </a>
+        </Link>
       </div>
     </nav>
   );

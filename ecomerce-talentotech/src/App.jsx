@@ -1,27 +1,23 @@
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import ProductList from './components/productList'
+import ProductList from './components/ProductList'
 import Cart from './components/Cart'
+import Home from './components/Home'
 
 function App() {
   return (
-
     <div className='App'>
-      <NavBar />
-      <header className='App-Header'><h1>Mi E-comerce</h1></header>
-      <main className='ElMain'>
-        <div className='hero-section'>
-          <h1>Welcome to TalentoTech Shop</h1>
-          <p>Find the better tech products here.</p>
-        </div>
-        <ProductList/>
-        <Cart />
-      </main>
-      <Footer/>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/productos' element={<ProductList/>} />
+          <Route path='/cart' element={<Cart/>} />
+        </Routes>
+        <Footer/>
     </div>
   )
-
 }
 
 export default App

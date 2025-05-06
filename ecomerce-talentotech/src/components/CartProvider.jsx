@@ -1,7 +1,12 @@
 import { createContext, useContext, useState } from "react";
 
+// Crear el contexto
 const CartContext = createContext();
 
+// Hook para usar el contexto
+export const useCart = () => useContext(CartContext);
+
+// Proveedor del carrito
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
 
@@ -36,18 +41,19 @@ export function CartProvider({ children }) {
         .map((item) =>
           item.id === id ? { ...item, quantity: item.quantity - 1 } : item
         )
-        .filter((item) => item.quantity > 0) // Elimina si llega a 0
+        .filter((item) => item.quantity > 0)
     );
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}>
+    <CartContext.Provider
+      value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
 }
 
-export const useCart = () => useContext(CartContext);
 
 
 
