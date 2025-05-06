@@ -13,7 +13,8 @@ function ProductList() {
   };
 
   useEffect(() => {
-    fetch('https://6810f73727f2fdac2413830b.mockapi.io/products')
+    // fetch('https://6810f73727f2fdac2413830b.mockapi.io/products')
+    fetch('https://fakestoreapi.com/products')
       .then((respuesta) => respuesta.json())
       .then((datos) => {
         if (Array.isArray(datos)) {
@@ -59,23 +60,28 @@ function ProductList() {
         <div className="products-grid">
           {productos.map((producto) => (
             <div key={producto.id} className="product-card">
-              <img 
-                src={
-                  producto.image && producto.image.startsWith('http')
-                    ? producto.image
-                    : `https://via.placeholder.com/300/92c952?text=${producto.image}`
-                }
-                alt={producto.name || "Producto"}
-                className="product-image"
-              />
+              <picture className='image-Container'>
+                <img 
+                  src={
+                    producto.image && producto.image.startsWith('https')
+                      ? producto.image
+                      : `https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg`
+                  }
+                  alt={producto.title || "Producto"}
+                  className="product-image"
+                />
+              </picture>
               <div className="product-info">
-                <h3 className="product-name">{producto.name}</h3>
+                <h3 className="product-name">
+                  {producto.title?.substring(0, 35)}
+                  {producto.title?.length > 35 ? '...' : ''}
+                </h3>
                 <p className="product-price">
                   ${parseFloat(producto.price).toFixed(2)}
                 </p>
                 <p className="product-description">
-                  {producto.description?.substring(0, 100)}
-                  {producto.description?.length > 100 ? '...' : ''}
+                  {producto.description?.substring(0, 90)}
+                  {producto.description?.length > 90 ? '...' : ''}
                 </p>
                 <div className="product-actions">
                   <button className="view-details-button">Ver detalles</button>
