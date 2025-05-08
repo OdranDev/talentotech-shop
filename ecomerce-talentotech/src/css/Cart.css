@@ -1,0 +1,119 @@
+.cart-card {
+  padding: 2rem;
+  min-height: 100vh;
+}
+.cart-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+.cart-card p {
+  color: #7f8c8d;
+}
+.cart-card .cart-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cart-card .card-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+.cart-card .image-rating-price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-card .image-rating-price-container .product-imagen {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.cart-card .image-rating-price-container .product-rating {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-card .image-rating-price-container .product-rating .rating-container {
+  display: flex;
+  gap: 4px;
+  font-size: 1rem;
+  color: #f1c40f;
+  font-weight: bold;
+}
+.cart-card .image-rating-price-container .product-rating .rating-number {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+.cart-card .image-rating-price-container .product-rating .product-price {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+.cart-card .product-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.cart-card .product-information .product-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #34495e;
+  margin: 0;
+}
+.cart-card .product-information .product-description {
+  font-size: 0.95rem;
+  color: #7f8c8d;
+}
+.cart-card .product-information .product-quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #34495e;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.cart-card .product-information .product-quantity .quantity-container {
+  margin: 2rem;
+  font-size: 1.5rem;
+}
+.cart-card .product-information .product-quantity button {
+  padding: 0.5rem;
+}
+.cart-card .product-information .product-quantity .total-pay {
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #27ae60;
+}
+.cart-card .product-information .product-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.cart-card .product-information .product-actions .remove-from-cart-button {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cart-card .product-information .product-actions .remove-from-cart-button:hover {
+  background-color: darkred;
+}/*# sourceMappingURL=Cart.css.map */

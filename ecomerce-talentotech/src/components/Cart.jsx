@@ -1,41 +1,56 @@
 import { useCart } from "./CartProvider";
-import "../style/Cart.css";
+import "../style/Cart.sass";
 
 export default function Cart() {
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
 
   return (
-    <div className="cart">
+    <div className="cart-card">
       <h2>Carrito</h2>
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito.</p>
       ) : (
-        <div className="products-grid">
+        <div className="cart-card-container">
           {cartItems.map((item) => (
-            <div key={item.id} className="product-cart-card">
-              <img
-                src={
-                  item.image && item.image.startsWith("http")
-                    ? item.image
-                    : `https://via.placeholder.com/300/92c952?text=Producto`
-                }
-                alt={item.title}
-                className="product-image"
-              />
-              <div className="product-info">
-                <h3 className="product-name">{item.title}</h3>
-                <p className="product-price">${parseFloat(item.price).toFixed(2)}</p>
+            <div key={item.id} className="card-grid">
+              <div className="image-rating-price-container">
+                <img
+                  src={
+                    item.image && item.image.startsWith("http")
+                      ? item.image
+                      : `https://via.placeholder.com/300/92c952?text=Producto`
+                  }
+                  alt={item.title}
+                  className="product-imagen"
+                />
+                <div className="product-rating">
+                  <div className="rating-container">
+                    <span className="">⭐ {item.rating?.rate}</span>
+                    <span className="rating-number">
+                      ({item.rating?.count})
+                    </span>
+                  </div>
+                  <p className="product-price">
+                    ${parseFloat(item.price).toFixed(2)}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="product-information">
+                <h3 className="product-title">{item.title}</h3>
                 <p className="product-description">
                   {item.description?.substring(0, 100)}
                   {item.description?.length > 100 ? "..." : ""}
                 </p>
 
                 <div className="product-quantity">
-                  <strong>Cantidad:</strong>
-                  <button onClick={() => decreaseQuantity(item.id)} style={{ margin: '0 8px' }}>➖</button>
-                  {item.quantity}
-                  <button onClick={() => increaseQuantity(item.id)} style={{ margin: '0 8px' }}>➕</button>
-                  <p className="product-total">
+                  <div className="quantity-container">
+                    <strong>Cantidad:</strong>
+                    <button onClick={() => decreaseQuantity(item.id)} style={{ margin: '0 8px' }}>➖</button>
+                    {item.quantity}
+                    <button onClick={() => increaseQuantity(item.id)} style={{ margin: '0 8px' }}>➕</button>
+                  </div>
+                  <p className="total-pay">
                     Total: ${(parseFloat(item.price) * item.quantity).toFixed(2)}
                   </p>
                 </div>
