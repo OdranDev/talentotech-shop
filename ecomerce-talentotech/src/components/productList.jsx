@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useCart } from './CartProvider';
-import '../style/productList.css';
+import React, { useState, useEffect } from "react";
+import { useCart } from "./CartProvider";
+import "../style/ProductList.sass";
 
 function ProductList() {
   const [productos, setProductos] = useState([]);
@@ -13,21 +13,22 @@ function ProductList() {
   };
 
   useEffect(() => {
-    // fetch('https://6810f73727f2fdac2413830b.mockapi.io/products')
-    fetch('https://fakestoreapi.com/products')
+    // fetch('https://6810f73727f2fdac2413830b.mockapi.io/products') MOCKAPI
+    //fetch('https://api.escuelajs.co/api/v1/products') PLATZI
+    fetch("https://fakestoreapi.com/products")
       .then((respuesta) => respuesta.json())
       .then((datos) => {
         if (Array.isArray(datos)) {
           setProductos(datos);
         } else {
-          console.error('La respuesta no es un array:', datos);
-          setError('Formato de datos incorrecto');
+          console.error("La respuesta no es un array:", datos);
+          setError("Formato de datos incorrecto");
         }
         setCargando(false);
       })
       .catch((error) => {
-        console.error('Error al cargar productos:', error);
-        setError('Hubo un problema al cargar los productos.');
+        console.error("Error al cargar productos:", error);
+        setError("Hubo un problema al cargar los productos.");
         setCargando(false);
       });
   }, []);
@@ -45,7 +46,9 @@ function ProductList() {
     return (
       <div className="error-container">
         <p className="error-message">{error}</p>
-        <button onClick={() => window.location.reload()}>Intentar de nuevo</button>
+        <button onClick={() => window.location.reload()}>
+          Intentar de nuevo
+        </button>
       </div>
     );
   }
@@ -55,36 +58,47 @@ function ProductList() {
       <h2 className="product-list-title">Nuestros Productos</h2>
 
       {productos.length === 0 ? (
-        <p className="no-products">No hay productos disponibles en este momento.</p>
+        <p className="no-products">
+          No hay productos disponibles en este momento.
+        </p>
       ) : (
         <div className="products-grid">
           {productos.map((producto) => (
             <div key={producto.id} className="product-card">
-              <picture className='image-Container'>
-                <img 
+              <div className="sup-card">
+                <img
                   src={
-                    producto.image && producto.image.startsWith('https')
+                    producto.image && producto.image.startsWith("https")
                       ? producto.image
                       : `https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg`
                   }
                   alt={producto.title || "Producto"}
                   className="product-image"
                 />
-              </picture>
+
+                <div className="product-rating">
+                  <div className="rating-container">
+                    <span className="rating-stars">⭐{producto.rating?.rate}</span>
+                    <span className="rating-number">
+                      ({producto.rating?.count})
+                    </span>
+                  </div>
+                  <p className="product-price">
+                    ${parseFloat(producto.price).toFixed(2)}
+                  </p>
+                </div>
+              </div>
               <div className="product-info">
                 <h3 className="product-name">
                   {producto.title?.substring(0, 35)}
-                  {producto.title?.length > 35 ? '...' : ''}
+                  {producto.title?.length > 35 ? "..." : ""}
                 </h3>
-                <p className="product-price">
-                  ${parseFloat(producto.price).toFixed(2)}
-                </p>
                 <p className="product-description">
                   {producto.description?.substring(0, 90)}
-                  {producto.description?.length > 90 ? '...' : ''}
+                  {producto.description?.length > 90 ? "..." : ""}
                 </p>
                 <div className="product-actions">
-                  <button className="view-details-button">Ver detalles</button>
+                  {/* <button className="view-details-button">Ver detalles</button> */}
                   <button
                     className="add-to-cart-button"
                     onClick={() => handleAddToCart(producto)}
@@ -93,6 +107,7 @@ function ProductList() {
                   </button>
                 </div>
               </div>
+              
             </div>
           ))}
         </div>
