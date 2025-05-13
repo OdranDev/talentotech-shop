@@ -5,15 +5,17 @@ import Footer from './components/Footer'
 import ProductList from './components/ProductList'
 import Cart from './components/Cart'
 import Home from './components/Home'
+import DetalleProducto from './components/DetalleProducto'
 
 function App() {
   return (
     <div className='App'>
-        <NavBar />
+        <NavBar/>
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route path='/productos' element={<ProductList/>} />
           <Route path='/cart' element={<Cart/>} />
+          <Route path='/productos' element={<ProductList/>} />
+          <Route path='/productos/:id' element={<DetalleProducto/>} />
         </Routes>
         <Footer/>
     </div>

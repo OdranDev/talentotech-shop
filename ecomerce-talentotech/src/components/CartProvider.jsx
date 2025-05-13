@@ -44,10 +44,11 @@ export function CartProvider({ children }) {
         .filter((item) => item.quantity > 0)
     );
   };
+  const totalPagar = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity }}
+      value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, totalPagar }}
     >
       {children}
     </CartContext.Provider>

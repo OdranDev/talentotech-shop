@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "./CartProvider";
 import "../style/ProductList.sass";
 
@@ -6,7 +7,8 @@ function ProductList() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-  const { addToCart } = useCart(); // usa el hook
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const handleAddToCart = (producto) => {
     addToCart(producto);
@@ -98,7 +100,9 @@ function ProductList() {
                   {producto.description?.length > 90 ? "..." : ""}
                 </p>
                 <div className="product-actions">
-                  {/* <button className="view-details-button">Ver detalles</button> */}
+                  <button 
+                  className="view-details-button" 
+                  onClick={() => navigate(`/productos/${producto.id}`)}>Ver detalles</button>
                   <button
                     className="add-to-cart-button"
                     onClick={() => handleAddToCart(producto)}

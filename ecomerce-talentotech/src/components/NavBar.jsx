@@ -16,7 +16,6 @@ function NavBar() {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/productos">Products</Link></li>
         <li><Link to="/categorias">Categories</Link></li>
-        <li><Link to="/ofertas">Offer</Link></li>
       </ul>
       <div className="navbar-actions">
         <a href="/search" className="search-icon">🔍</a>

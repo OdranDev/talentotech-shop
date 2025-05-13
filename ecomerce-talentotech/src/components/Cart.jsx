@@ -3,6 +3,7 @@ import "../style/Cart.sass";
 
 export default function Cart() {
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const totalPagar = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <div className="cart-card">
@@ -68,6 +69,7 @@ export default function Cart() {
           ))}
         </div>
       )}
+      <h3 className="total-final">Total a Pagar: ${totalPagar.toFixed(2)}</h3>
     </div>
   );
 }

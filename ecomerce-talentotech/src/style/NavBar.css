@@ -2,8 +2,8 @@
     position: sticky;
     top: 0;
     z-index: 1000; /* Asegura que esté encima del contenido */
-    background-color: hsl(210, 29%, 24%);
-    padding: 0 20px;
+    background-color: rgb(43, 61, 79);
+    padding: 0 2rem;
     height: 60px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
