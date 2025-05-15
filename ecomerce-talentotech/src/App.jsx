@@ -6,6 +6,8 @@ import ProductList from './components/ProductList'
 import Cart from './components/Cart'
 import Home from './components/Home'
 import DetalleProducto from './components/DetalleProducto'
+import RutaProtegida from './components/RutaProtegida'
+import Login from './components/Login'
 
 function App() {
   return (
@@ -13,9 +15,10 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route path='/cart' element={<Cart/>} />
+          <Route path='/cart' element={<RutaProtegida> <Cart/> </RutaProtegida>} />
           <Route path='/productos' element={<ProductList/>} />
           <Route path='/productos/:id' element={<DetalleProducto/>} />
+          <Route path='/login' element={<Login />} />
         </Routes>
         <Footer/>
     </div>
