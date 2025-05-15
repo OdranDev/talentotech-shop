@@ -1,13 +1,29 @@
 import { useCart } from "./CartProvider";
 import "../style/Cart.sass";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
-  const totalPagar = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
+    useCart();
+  const totalPagar = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const navigate = useNavigate();
 
   return (
     <div className="cart-card">
-      <h2>Carrito</h2>
+      <div className="sub-header">
+        <button
+          className="back-button"
+          onClick={() => navigate(-1)}
+          style={{ marginLeft: "10px" }}
+        >
+          ⬅️ Volver
+        </button>
+        <h2>Carrito</h2>
+        <h3 className="total-final">Por pagar: ${totalPagar.toFixed(2)}</h3>
+      </div>
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito.</p>
       ) : (
@@ -36,23 +52,34 @@ export default function Cart() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="product-information">
                 <h3 className="product-title">{item.title}</h3>
                 <p className="product-description">
-                  {item.description?.substring(0, 100)}
+                  {item.description?.substring(0, 240)}
                   {item.description?.length > 100 ? "..." : ""}
                 </p>
 
                 <div className="product-quantity">
                   <div className="quantity-container">
                     <strong>Cantidad:</strong>
-                    <button onClick={() => decreaseQuantity(item.id)} style={{ margin: '0 8px' }}>➖</button>
+                    <button
+                      onClick={() => decreaseQuantity(item.id)}
+                      style={{ margin: "0 8px" }}
+                    >
+                      ➖
+                    </button>
                     {item.quantity}
-                    <button onClick={() => increaseQuantity(item.id)} style={{ margin: '0 8px' }}>➕</button>
+                    <button
+                      onClick={() => increaseQuantity(item.id)}
+                      style={{ margin: "0 8px" }}
+                    >
+                      ➕
+                    </button>
                   </div>
                   <p className="total-pay">
-                    Total: ${(parseFloat(item.price) * item.quantity).toFixed(2)}
+                    Total: $
+                    {(parseFloat(item.price) * item.quantity).toFixed(2)}
                   </p>
                 </div>
 
@@ -69,10 +96,6 @@ export default function Cart() {
           ))}
         </div>
       )}
-      <h3 className="total-final">Total a Pagar: ${totalPagar.toFixed(2)}</h3>
     </div>
   );
 }
-
-
-

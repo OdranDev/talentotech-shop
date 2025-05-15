@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./CartProvider";
 import "../style/ProductList.sass";
+import Swal from "sweetalert2";
+import "../style/DetalleProducto.sass";
 
 function ProductList() {
   const [productos, setProductos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("all");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
@@ -14,10 +18,53 @@ function ProductList() {
     addToCart(producto);
   };
 
+  const confirmarAgregarAlCarrito = (producto) => {
+    Swal.fire({
+      title: "¿Agregar al carrito?",
+      text: "¿Deseas agregar este producto a tu carrito?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, agregar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addToCart(producto);
+        Swal.fire({
+          title: "¡Agregado!",
+          text: "El producto ha sido agregado al carrito.",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
+  // Cargar categorías
   useEffect(() => {
-    // fetch('https://6810f73727f2fdac2413830b.mockapi.io/products') MOCKAPI
-    //fetch('https://api.escuelajs.co/api/v1/products') PLATZI
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://fakestoreapi.com/products/categories")
+      .then((res) => res.json())
+      .then((categorias) => setCategorias(categorias))
+      .catch((error) =>
+        console.error("Error al cargar categorías:", error)
+      );
+  }, []);
+
+  // Cargar productos (por categoría)
+  useEffect(() => {
+    setCargando(true);
+    const url =
+      categoriaSeleccionada === "all"
+        ? "https://fakestoreapi.com/products"
+        : `https://fakestoreapi.com/products/category/${categoriaSeleccionada}`;
+
+    fetch(url)
       .then((respuesta) => respuesta.json())
       .then((datos) => {
         if (Array.isArray(datos)) {
@@ -33,7 +80,7 @@ function ProductList() {
         setError("Hubo un problema al cargar los productos.");
         setCargando(false);
       });
-  }, []);
+  }, [categoriaSeleccionada]);
 
   if (cargando) {
     return (
@@ -57,7 +104,24 @@ function ProductList() {
 
   return (
     <div className="product-list">
-      <h2 className="product-list-title">Nuestros Productos</h2>
+      <div className="category-filter">
+        <h2 className="product-list-title">Nuestros Productos</h2>
+        <div>
+          <label htmlFor="categoria">Filtrar por categoría:</label>
+          <select
+            id="categoria"
+            value={categoriaSeleccionada}
+            onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+          >
+            <option value="all">Todas</option>
+            {categorias.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {productos.length === 0 ? (
         <p className="no-products">
@@ -80,7 +144,9 @@ function ProductList() {
 
                 <div className="product-rating">
                   <div className="rating-container">
-                    <span className="rating-stars">⭐{producto.rating?.rate}</span>
+                    <span className="rating-stars">
+                      ⭐{producto.rating?.rate}
+                    </span>
                     <span className="rating-number">
                       ({producto.rating?.count})
                     </span>
@@ -92,26 +158,24 @@ function ProductList() {
               </div>
               <div className="product-info">
                 <h3 className="product-name">
-                  {producto.title?.substring(0, 35)}
-                  {producto.title?.length > 35 ? "..." : ""}
+                  {producto.title?.substring(0, 60)}
+                  {producto.title?.length > 60 ? "..." : ""}
                 </h3>
-                <p className="product-description">
-                  {producto.description?.substring(0, 90)}
-                  {producto.description?.length > 90 ? "..." : ""}
-                </p>
                 <div className="product-actions">
-                  <button 
-                  className="view-details-button" 
-                  onClick={() => navigate(`/productos/${producto.id}`)}>Ver detalles</button>
+                  <button
+                    className="view-details-button"
+                    onClick={() => navigate(`/productos/${producto.id}`)}
+                  >
+                    Ver detalles
+                  </button>
                   <button
                     className="add-to-cart-button"
-                    onClick={() => handleAddToCart(producto)}
+                    onClick={() => confirmarAgregarAlCarrito(producto)}
                   >
                     Add to cart
                   </button>
                 </div>
               </div>
-              
             </div>
           ))}
         </div>

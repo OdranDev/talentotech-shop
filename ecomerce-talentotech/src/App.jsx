@@ -8,6 +8,7 @@ import Home from './components/Home'
 import DetalleProducto from './components/DetalleProducto'
 import RutaProtegida from './components/RutaProtegida'
 import Login from './components/Login'
+import ProductosPorCategoria from './components/ProductosPorCategoria'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/cart' element={<RutaProtegida> <Cart/> </RutaProtegida>} />
           <Route path='/productos' element={<ProductList/>} />
           <Route path='/productos/:id' element={<DetalleProducto/>} />
+          {/* <Route path="/categorias/:categoria" element={<ProductosPorCategoria />} /> */}
           <Route path='/login' element={<Login />} />
         </Routes>
         <Footer/>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // ✅ importamos useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "./CartProvider";
+import Swal from "sweetalert2";
 import "../style/DetalleProducto.sass";
 
 function DetalleProducto() {
   const { id } = useParams();
-  const navigate = useNavigate(); // ✅ inicializamos navigate
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const [producto, setProducto] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -25,14 +26,40 @@ function DetalleProducto() {
       });
   }, [id]);
 
+  const confirmarAgregarAlCarrito = () => {
+    Swal.fire({
+      title: "¿Agregar al carrito?",
+      text: "¿Deseas agregar este producto a tu carrito?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, agregar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addToCart(producto);
+        Swal.fire({
+          title: "¡Agregado!",
+          text: "El producto ha sido agregado al carrito.",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false
+        });
+      }
+    });
+  };
+
   if (cargando) return <p>Cargando producto...</p>;
   if (error) return <p>{error}</p>;
   if (!producto) return <p>Producto no encontrado.</p>;
 
   return (
     <div className="detalle-producto-container">
-      <div className="back-container">
-      {/* ✅ Botón para volver atrás */}
       <button
         className="back-button"
         onClick={() => navigate(-1)}
@@ -41,8 +68,7 @@ function DetalleProducto() {
         ⬅️ Volver
       </button>
       <h2>Detalle del Producto</h2>
-      </div>
-
+      
       <div className="card-grid">
         <div className="image-rating-price-container">
           <img
@@ -65,27 +91,28 @@ function DetalleProducto() {
 
         <div className="product-information">
           <h3 className="product-title">{producto.title}</h3>
-          <p className="product-description">{producto.description}</p>
           <p><strong>Categoría:</strong> {producto.category}</p>
+          <p className="product-description">{producto.description}</p>
 
           <div className="product-actions">
             <button
+              className="go-to-products-button"
+              onClick={() => navigate("/productos")}
+              style={{ marginLeft: "10px" }}
+            >
+              Ver más Productos
+            </button>
+
+            <button
               className="add-to-cart-button"
-              onClick={() => addToCart(producto)}
+              onClick={confirmarAgregarAlCarrito}
             >
               Agregar al carrito 🛒
             </button>
+
           </div>
         </div>
       </div>
-       {/* Botón para ir a la página de productos */}
-      <button
-        className="go-to-products-button"
-        onClick={() => navigate("/productos")}
-        style={{ marginLeft: "10px" }}
-      >
-        Ver Productos
-      </button>
     </div>
   );
 }
