@@ -1,11 +1,19 @@
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from './CartProvider';
-
 import '../style/NavBar.css';
 
 function NavBar() {
   const { cartItems } = useCart();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products/categories")
+      .then((res) => res.json())
+      .then((data) => setCategorias(data))
+      .catch((err) => console.error("Error cargando categorías", err));
+  }, []);
 
   return (
     <nav className="navbar">
@@ -15,13 +23,23 @@ function NavBar() {
       <ul className="navbar-link">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/productos">Products</Link></li>
-        <li><Link to="/categorias">Categories</Link></li>
-        <li><Link to="/ofertas">Offer</Link></li>
+
+        {/* <li className="dropdown">
+          <span>Categorías ▾</span>
+          <ul className="dropdown-menu">
+            {categorias.map((cat) => (
+              <li key={cat}>
+                <Link to={`/categorias/${cat}`}>{cat}</Link>
+              </li>
+            ))}
+          </ul>
+        </li> */}
       </ul>
+
       <div className="navbar-actions">
-        <a href="/search" className="search-icon">🔍</a>
-        <a href="/profile" className="profile-icon">👤</a>
-        <Link to="/cart" className="cart-icon" >
+        <Link to="/search" className="search-icon">🔍</Link>
+        {/* <Link to="/profile" className="profile-icon">👤</Link> */}
+        <Link to="/cart" className="cart-icon">
           🛒<span className="cart-count">{totalItems}</span>
         </Link>
       </div>

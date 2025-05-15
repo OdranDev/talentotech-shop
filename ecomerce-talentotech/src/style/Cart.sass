@@ -1,11 +1,43 @@
 .cart-card
-  padding: 2rem
-  min-height: 100vh
+  padding: 1rem
+  min-height: 75vh
+  .sub-header
+    background-color: #34495e
+    position: sticky
+    top: 60px
+    z-index: 1000
+    display: flex
+    align-items: center
+    justify-content: space-between
+    border-radius: 9px
+    .back-button
+      margin-left: 9px
+      // left: 0
+      // position: absolute
+      // margin-right: 2rem
+      background-color: #3498db
+      // padding: 10px 15px
+      border: none
+      border-radius: 5px
+      cursor: pointer
+      transition: background-color 0.2s ease
+      &:hover
+        background-color: #ccc
 
-  h2
-    font-size: 2rem
-    margin-bottom: 1rem
-    color: #2c3e50
+    h2
+      font-size: 2rem
+      color: #ccc
+      margin: 0
+      text-align: center
+
+    .total-final
+      text-align: right
+      margin: 0px 9px 0 0
+      font-size: 1.5rem
+      font-weight: bold
+      color: #27ae60
+      // padding: 1rem
+      border-radius: 9px
 
   p
     color: #7f8c8d
@@ -41,8 +73,9 @@
     .product-rating
       margin-top: 10px
       display: flex
-      flex-direction: column
       align-items: center
+      justify-content: space-around
+      width: 100%
       .rating-container
         display: flex
         gap: 4px
@@ -77,6 +110,7 @@
       color: #7f8c8d
 
     .product-quantity
+      height: 3rem
       display: flex
       align-items: center
       gap: 10px
@@ -90,7 +124,7 @@
         font-size: 1.5rem
 
       button
-        padding: .5rem
+        padding: .3rem
 
       .total-pay
         margin-left: auto
