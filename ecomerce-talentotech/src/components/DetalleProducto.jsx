@@ -11,6 +11,10 @@ function DetalleProducto() {
   const [producto, setProducto] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const handleVolver = () => {
+    navigate("/", { replace: true }); // Navega SIN guardar scroll
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Hace scroll hacia arriba con animación
+  };
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -62,7 +66,7 @@ function DetalleProducto() {
     <div className="detalle-producto-container">
       <button
         className="back-button"
-        onClick={() => navigate(-1)}
+        onClick={handleVolver}
         style={{ marginLeft: "10px" }}
       >
         ⬅️ Volver

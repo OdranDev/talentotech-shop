@@ -43,27 +43,41 @@ function SliderHome() {
 
   return (
     <div className="home-container">
-      <h1 className="home-title">Bienvenido a la tienda</h1>
-
       <section className="slider-section">
         <h2>Productos Destacados</h2>
         <Slider {...sliderSettings}>
           {productos.map((producto) => (
             <div key={producto.id} className="slider-item">
-              <img
-                src={producto.image}
-                alt={producto.title}
-                className="slider-image"
-              />
-              <div className="slider-info">
-                <div className="price-rating">
-                  <p><strong>Price:</strong> ${producto.price.toFixed(2)}</p>
-                  <p><strong>Rating:</strong> ⭐ {producto.rating.rate}</p>
+              <div className="card-horizontal">
+                <div className="image-rating-price-container">
+                  <img
+                    src={
+                      producto.image?.startsWith("http")
+                        ? producto.image
+                        : `https://via.placeholder.com/300/92c952?text=Producto`
+                    }
+                    alt={producto.title}
+                    className="product-imagen"
+                  />
+                  <div className="product-rating">
+                    <div className="rating-container">
+                      <span>⭐ {producto.rating?.rate}</span>
+                      <span className="rating-number">
+                        ({producto.rating?.count})
+                      </span>
+                    </div>
+                    <p className="product-price">${producto.price.toFixed(2)}</p>
+                  </div>
                 </div>
-                <div className="title-description">
-                  <h3>{producto.title}</h3>
-                  <p>{producto.description.substring(0, 200)}...</p>
-                  <button onClick={() => navigate(`/productos/${producto.id}`)}>
+                <div className="slider-info">
+                  <div className="title-description">
+                    <h3>{producto.title}</h3>
+                    <p>{producto.description.substring(0, 150)}...</p>
+                  </div>
+                  <button
+                    className="ver-detalles-button"
+                    onClick={() => navigate(`/productos/${producto.id}`)}
+                  >
                     Ver detalles
                   </button>
                 </div>
@@ -73,7 +87,7 @@ function SliderHome() {
         </Slider>
       </section>
     </div>
-  );
+  )
 }
 
 export default SliderHome;
