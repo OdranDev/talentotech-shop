@@ -1,15 +1,78 @@
 import { useCart } from "./CartProvider";
 import "../style/Cart.sass";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Cart() {
-  const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
-    useCart();
+  const {
+    cartItems,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    clearCart
+  } = useCart();
+
   const totalPagar = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
   const navigate = useNavigate();
+
+  const confirmarEliminarProducto = (id) => {
+    Swal.fire({
+      title: "¿Eliminar producto?",
+      text: "¿Estás seguro de que quieres eliminar este producto del carrito?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+      customClass: {
+        confirmButton: "btn btn-danger",
+        cancelButton: "btn btn-secondary"
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeFromCart(id);
+        Swal.fire({
+          title: "Eliminado",
+          text: "El producto ha sido eliminado del carrito.",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false
+        });
+      }
+    });
+  };
+
+  const confirmarVaciarCarrito = () => {
+    Swal.fire({
+      title: "¿Vaciar carrito?",
+      text: "¿Estás seguro de que quieres eliminar todos los productos del carrito?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, vaciar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+      customClass: {
+        confirmButton: "btn btn-danger",
+        cancelButton: "btn btn-secondary"
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clearCart();
+        Swal.fire({
+          title: "Carrito vacío",
+          text: "Todos los productos han sido eliminados.",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false
+        });
+      }
+    });
+  };
 
   return (
     <div className="cart-card">
@@ -22,8 +85,19 @@ export default function Cart() {
           ⬅️ Volver
         </button>
         <h2>Carrito</h2>
+
+        {cartItems.length > 0 && (
+          <button
+            className="vaciar-carrito-button"
+            onClick={confirmarVaciarCarrito}
+          >
+            🗑️ Vaciar Carrito
+          </button>
+        )}
+
         <h3 className="total-final">Por pagar: ${totalPagar.toFixed(2)}</h3>
       </div>
+
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito.</p>
       ) : (
@@ -35,14 +109,14 @@ export default function Cart() {
                   src={
                     item.image && item.image.startsWith("http")
                       ? item.image
-                      : `https://via.placeholder.com/300/92c952?text=Producto`
+                      : "https://via.placeholder.com/300/92c952?text=Producto"
                   }
                   alt={item.title}
                   className="product-imagen"
                 />
                 <div className="product-rating">
                   <div className="rating-container">
-                    <span className="">⭐ {item.rating?.rate}</span>
+                    <span>⭐ {item.rating?.rate}</span>
                     <span className="rating-number">
                       ({item.rating?.count})
                     </span>
@@ -86,7 +160,7 @@ export default function Cart() {
                 <div className="product-actions">
                   <button
                     className="remove-from-cart-button"
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => confirmarEliminarProducto(item.id)}
                   >
                     🗑️ Eliminar
                   </button>

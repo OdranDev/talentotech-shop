@@ -45,6 +45,36 @@
     color: #3498db;
 }
 
+.navbar-link li a.active {
+  color: #3498db;
+  font-weight: bold;
+}
+.navbar-link li a.active {
+  color: #3498db;
+  font-weight: bold;
+}
+.navbar-link li a.active {
+  color: #3498db;
+  font-weight: bold;
+}
+.navbar-link li a.active {
+  color: #3498db;
+  font-weight: bold;
+}
+
+/*Links activos del menú */
+.navbar-link li a.active,
+.cart-icon.active,
+.profile-icon.active,
+.navbar-logo a.active {
+  padding: 3px;
+  border-radius: 3px;
+  background-color: #ccc;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+
 /* Dropdown */
 .dropdown {
   position: relative;

@@ -1,74 +1,82 @@
 .home-container
   width: 90%
   color: black
-.slider-section
-  padding: 2rem
   h2
     text-align: center
-    margin-bottom: 1.5rem
+    margin: 0
+    color: #fffbdf
+    
+  .slider-section
+    padding: 2rem
 
-  .slider-item
-    padding: 10px
+    .slider-item
+      // padding: 10px
 
-    .card-horizontal
-      display: flex
-      flex-direction: row
-      background: white
-      border-radius: 10px
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)
-      padding: 20px
-      gap: 20px
-      height: 100%
-      margin: 1rem
-
-      .image-rating-price-container
-        flex: 1
+      .card-horizontal
         display: flex
-        flex-direction: column
-        align-items: center
-        justify-content: center
+        flex-direction: row
+        background: white
+        border-radius: 10px
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1)
+        padding: 20px
+        gap: 20px
+        height: 100%
+        margin: 1rem
 
-        .product-imagen
-          width: 200px
-          height: 200px
-          object-fit: contain
-
-        .product-rating
-          margin-top: 10px
+        .image-rating-price-container
+          flex: 1
           display: flex
           flex-direction: column
           align-items: center
-          .rating-container
-            font-size: 1rem
-          .product-price
-            margin-top: 5px
-            color: #27ae60
-            font-weight: bold
-            font-size: 1.1rem
+          justify-content: center
 
-      .slider-info
-        flex: 2
-        display: flex
-        flex-direction: column
-        justify-content: space-between
+          .product-imagen
+            width: 200px
+            height: 200px
+            object-fit: contain
 
-        .title-description
-          h3
-            margin-bottom: 0.5rem
-            font-size: 1.1rem
-          p
-            font-size: 0.95rem
-            color: #555
+          .product-rating
+            margin-top: 10px
+            display: flex
+            align-items: center
+            .rating-container
+              font-size: 1rem
+            .product-price
+              margin-left: 9px
+              color: #27ae60
+              font-weight: bold
+              font-size: 1.1rem
 
-        .ver-detalles-button
-          margin-top: auto
-          padding: 10px 15px
-          background-color: #3498db
-          border: none
-          border-radius: 5px
-          color: white
-          cursor: pointer
-          font-weight: 600
-          transition: background-color 0.3s ease
-          &:hover
-            background-color: #2980b9
+        .slider-info
+          flex: 2
+          display: flex
+          flex-direction: column
+          justify-content: space-between
+
+          .title-description
+            h3
+              margin-bottom: 0.5rem
+              font-size: 1.1rem
+            p
+              font-size: 0.95rem
+              color: #555
+
+          .ver-detalles-button
+            margin-top: auto
+            padding: 10px 15px
+            background-color: #3498db
+            border: none
+            border-radius: 5px
+            color: white
+            cursor: pointer
+            font-weight: 600
+            transition: background-color 0.3s ease
+            &:hover
+              background-color: #2980b9
+
+.slick-dots
+  background-color: #fffbdf
+  border-radius: 9px
+  display: flex
+  align-items: center
+  justify-content: center

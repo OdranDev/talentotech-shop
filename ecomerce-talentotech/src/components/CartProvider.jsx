@@ -15,7 +15,9 @@ export function CartProvider({ children }) {
       const existe = prev.find((item) => item.id === producto.id);
       if (existe) {
         return prev.map((item) =>
-          item.id === producto.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === producto.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       } else {
         return [...prev, { ...producto, quantity: 1 }];
@@ -44,17 +46,28 @@ export function CartProvider({ children }) {
         .filter((item) => item.quantity > 0)
     );
   };
-  const totalPagar = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPagar = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, totalPagar }}
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        increaseQuantity,
+        decreaseQuantity,
+        totalPagar,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
   );
 }
-
-
-
-

@@ -4,27 +4,32 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null); // nuevo estado para el usuario
 
-  // Leer el estado de autenticación desde localStorage al cargar
+  // Cargar usuario desde localStorage al inicio
   useEffect(() => {
-    const storedAuth = localStorage.getItem("auth");
-    if (storedAuth === "true") {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
       setIsAuthenticated(true);
     }
   }, []);
 
-  const login = () => {
+  // Login de ejemplo
+  const login = (usuarioFake = { nombre: "Admin", rol: "admin" }) => {
     setIsAuthenticated(true);
-    localStorage.setItem("auth", "true");
+    setUser(usuarioFake);
+    localStorage.setItem("user", JSON.stringify(usuarioFake));
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem("auth");
+    setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -33,4 +38,3 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
-
